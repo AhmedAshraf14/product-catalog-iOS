@@ -16,9 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        #warning("TODO: add rootViewController")
         let navigationController = UINavigationController(
-//            rootViewController:
+            rootViewController: ProductsViewController(viewModel: ProductsViewModel())
         )
 
         window.rootViewController = navigationController
