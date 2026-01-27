@@ -25,10 +25,10 @@ final class ProductDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        conifgureViews()
+        configureViews()
     }
 
-    private func conifgureViews() {
+    private func configureViews() {
         let product = viewModel.productInfo()
         productDetailsHeader.configure(with: product.image)
         productInfo.configure(with: product)
