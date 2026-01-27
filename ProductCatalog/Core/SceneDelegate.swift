@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigationController = UINavigationController(
             rootViewController: ProductsViewController(viewModel: ProductsViewModel())
         )
-
+        navigationController.navigationBar.tintColor = .black
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window

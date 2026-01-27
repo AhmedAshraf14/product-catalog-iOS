@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailsViewController" customModule="ProductCatalogTest" customModuleProvider="target">
+            <connections>
+                <outlet property="productDetailsHeader" destination="mfv-pg-393" id="Pha-mA-Twl"/>
+                <outlet property="productInfo" destination="b6s-Y7-ZkH" id="i4j-GW-2KZ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfv-pg-393" customClass="ProductDetailsHeader" customModule="ProductCatalogTest" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="59" width="393" height="128"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6s-Y7-ZkH" customClass="ProductInfoView" customModule="ProductCatalogTest" customModuleProvider="target">
+                    <rect key="frame" x="24" y="362" width="345" height="128"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="mfv-pg-393" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KxF-mt-La2"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="b6s-Y7-ZkH" secondAttribute="trailing" constant="24" id="NFS-SR-N7O"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mfv-pg-393" secondAttribute="trailing" id="UAj-4Y-njf"/>
+                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="VCs-Cn-7sf"/>
+                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="top" secondItem="mfv-pg-393" secondAttribute="bottom" constant="22" id="vIQ-sB-bwu"/>
+                <constraint firstItem="mfv-pg-393" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zBf-Vj-c7A"/>
+            </constraints>
+            <point key="canvasLocation" x="79" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

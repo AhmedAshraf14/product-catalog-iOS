@@ -1,6 +1,6 @@
 //
 //  ProductsViewController.swift
-//  ProductCatalogTest
+//  ProductCatalog
 //
 //  Created by Ahmed Ashraf on 25/01/2026.
 //
@@ -89,5 +89,14 @@ extension ProductsViewController: UICollectionViewDataSource, UICollectionViewDe
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productDetailsViewController = ProductDetailsViewController(
+            viewModel: ProductDetailsViewModel(
+                product: viewModel.product(at: indexPath.item)
+            )
+        )
+        navigationController?.pushViewController(productDetailsViewController, animated: true)
     }
 }

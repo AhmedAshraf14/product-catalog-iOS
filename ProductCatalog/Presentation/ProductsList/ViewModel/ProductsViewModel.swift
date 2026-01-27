@@ -1,6 +1,6 @@
 //
 //  ProductsViewModel.swift
-//  ProductCatalogTest
+//  ProductCatalog
 //
 //  Created by Ahmed Ashraf on 25/01/2026.
 //

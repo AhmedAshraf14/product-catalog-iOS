@@ -1,6 +1,6 @@
 //
 //  ProductGridCell.swift
-//  ProductCatalogTest
+//  ProductCatalog
 //
 //  Created by Ahmed Ashraf on 24/01/2026.
 //
