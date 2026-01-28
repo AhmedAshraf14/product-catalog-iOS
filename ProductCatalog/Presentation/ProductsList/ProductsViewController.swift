@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ProductsViewController: UIViewController {
 
@@ -17,6 +18,7 @@ final class ProductsViewController: UIViewController {
         }
     }
     private let viewModel: ProductsViewModelProtocol
+    private var cancellables = Set<AnyCancellable>()
 
     init(viewModel: ProductsViewModelProtocol) {
         self.viewModel = viewModel
@@ -29,8 +31,10 @@ final class ProductsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sink()
         setupNavigationHeader()
         setupProductsCollectionView()
+        viewModel.getProducts()
     }
 
     private func setupNavigationHeader() {
@@ -54,6 +58,34 @@ final class ProductsViewController: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
     }
+    
+    private func sink() {
+        viewModel.loading
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                productsCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
+        
+        viewModel.errorMessage
+            .sink { [weak self] message in
+                guard let self else { return }
+                showAlert(message: message)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func showAlert(message: String) {
+        let alert = UIAlertController(
+            title: "Error",
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
+    }
+
 }
 
 extension ProductsViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -98,5 +130,12 @@ extension ProductsViewController: UICollectionViewDataSource, UICollectionViewDe
             )
         )
         navigationController?.pushViewController(productDetailsViewController, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let lastIndex = viewModel.numberOfProducts() - 1
+        if indexPath.row >= lastIndex {
+            viewModel.getProducts()
+        }
     }
 }
