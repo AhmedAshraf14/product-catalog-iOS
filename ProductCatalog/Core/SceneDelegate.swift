@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         navigationController.navigationBar.tintColor = .black
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
+        window.overrideUserInterfaceStyle = .light
         self.window = window
     }
 
