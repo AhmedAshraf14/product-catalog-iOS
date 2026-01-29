@@ -9,8 +9,7 @@ import Foundation
 import Combine
 
 protocol ProductsViewModelProtocol {
-    var loading: PassthroughSubject<Bool, Never> { get }
-    var errorMessage: PassthroughSubject<String, Never> { get }
+    var state: CurrentValueSubject<ViewState, Never> { get }
     func numberOfProducts() -> Int
     func product(at index: Int) -> Product
     func getProducts()
@@ -18,32 +17,31 @@ protocol ProductsViewModelProtocol {
 
 final class ProductsViewModel: ProductsViewModelProtocol {
 
-    let loading = PassthroughSubject<Bool, Never>()
-    let errorMessage = PassthroughSubject<String, Never>()
+    let state: CurrentValueSubject<ViewState, Never> = .init(.idle)
 
     private var products: [Product] = []
     private let useCase: ProductListUseCaseProtocol
     private var cancellables = Set<AnyCancellable>()
+
     private var reachedLastItem = false
-    private let limit = 10
+    private let limit = 7
 
     init(useCase: ProductListUseCaseProtocol = ProductListUseCase()) {
         self.useCase = useCase
     }
 
     func getProducts() {
-        guard !reachedLastItem else { return }
+        guard !reachedLastItem, state.value != .loading else { return }
 
-        loading.send(true)
+        state.send(products.isEmpty ? .loading : .idle)
 
         useCase.fetchProducts(numberOfProducts: products.count + limit)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] completion in
                 guard let self else { return }
-                loading.send(false)
 
                 if case .failure(let error) = completion {
-                    errorMessage.send(error.userFriendlyMessage)
+                    state.send(.error(error.userFriendlyMessage))
                 }
             } receiveValue: { [weak self] products in
                 guard let self else { return }
@@ -52,8 +50,12 @@ final class ProductsViewModel: ProductsViewModelProtocol {
                     reachedLastItem = true
                     return
                 }
+                let newProductsCount = products.count - self.products.count
+                self.products.append(contentsOf: products.suffix(newProductsCount))
 
-                self.products.append(contentsOf: products.suffix(limit))
+                self.products.isEmpty
+                ? state.send(.empty)
+                : state.send(.loaded)
             }
             .store(in: &cancellables)
     }
