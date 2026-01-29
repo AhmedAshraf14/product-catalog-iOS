@@ -7,12 +7,13 @@
 
 import UIKit
 import Combine
+import SkeletonView
 
 final class ProductsViewController: UIViewController {
 
     @IBOutlet private weak var productsCollectionView: UICollectionView!
 
-    private var currentLayout: LayoutType = .grid {
+    private var currentLayout: LayoutType = .list {
         didSet {
             productsCollectionView.reloadData()
         }
@@ -40,7 +41,7 @@ final class ProductsViewController: UIViewController {
     private func setupNavigationHeader() {
         title = "Product Catalog"
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "list.bullet")?.withTintColor(.black, renderingMode: .alwaysOriginal),
+            image: currentLayout.rightBarButtonImage,
             style: .plain,
             target: self,
             action: #selector(changeViewLayout)
@@ -58,20 +59,33 @@ final class ProductsViewController: UIViewController {
         productsCollectionView.delegate = self
         productsCollectionView.dataSource = self
     }
-    
+
     private func sink() {
-        viewModel.loading
+        viewModel.state
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] state in
                 guard let self else { return }
-                productsCollectionView.reloadData()
-            }
-            .store(in: &cancellables)
-        
-        viewModel.errorMessage
-            .sink { [weak self] message in
-                guard let self else { return }
-                showAlert(message: message)
+
+                switch state {
+
+                case .idle:
+                    break
+
+                case .loading:
+                    productsCollectionView.showAnimatedGradientSkeleton(usingGradient: .init(baseColor: .clouds), animation: nil, transition: .crossDissolve(0.25))
+
+                case .loaded:
+                    productsCollectionView.hideSkeleton(reloadDataAfter: true, transition: .crossDissolve(0.25))
+                    productsCollectionView.reloadData()
+
+                case .empty:
+                    productsCollectionView.hideSkeleton()
+                    #warning("TODO: add empty state view")
+
+                case .error(let message):
+                    productsCollectionView.hideSkeleton()
+                    showAlert(message: message)
+                }
             }
             .store(in: &cancellables)
     }
@@ -137,5 +151,11 @@ extension ProductsViewController: UICollectionViewDataSource, UICollectionViewDe
         if indexPath.row >= lastIndex {
             viewModel.getProducts()
         }
+    }
+}
+
+extension ProductsViewController: SkeletonCollectionViewDataSource, SkeletonCollectionViewDelegate {
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
+        return currentLayout.cellIdentifier
     }
 }

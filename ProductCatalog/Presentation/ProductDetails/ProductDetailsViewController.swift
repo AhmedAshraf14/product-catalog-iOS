@@ -9,7 +9,7 @@ import UIKit
 
 final class ProductDetailsViewController: UIViewController {
 
-    @IBOutlet private weak var productDetailsHeader: ProductDetailsHeader!
+    @IBOutlet private weak var productImageHeader: UIImageView!
     @IBOutlet private weak var productInfo: ProductInfoView!
     
     private let viewModel: ProductDetailsViewModelProtocol
@@ -30,7 +30,9 @@ final class ProductDetailsViewController: UIViewController {
 
     private func configureViews() {
         let product = viewModel.productInfo()
-        productDetailsHeader.configure(with: product.image)
+        if let url = URL(string: product.image) {
+            productImageHeader.kf.setImage(with: url)
+        }
         productInfo.configure(with: product)
     }
 }

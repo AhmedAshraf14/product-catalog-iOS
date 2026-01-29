@@ -9,9 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailsViewController" customModule="ProductCatalogTest" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailsViewController" customModule="ProductCatalog" customModuleProvider="target">
             <connections>
-                <outlet property="productDetailsHeader" destination="mfv-pg-393" id="Pha-mA-Twl"/>
+                <outlet property="productImageHeader" destination="AEr-Lz-JkG" id="RGI-uh-KnS"/>
                 <outlet property="productInfo" destination="b6s-Y7-ZkH" id="i4j-GW-2KZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,24 +21,72 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mfv-pg-393" customClass="ProductDetailsHeader" customModule="ProductCatalogTest" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="59" width="393" height="128"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="img-container" userLabel="Image Container">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="409"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AEr-Lz-JkG">
+                            <rect key="frame" x="24" y="59" width="345" height="326"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemGray6Color"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="AEr-Lz-JkG" secondAttribute="bottom" constant="24" id="img-pad-bottom"/>
+                        <constraint firstItem="AEr-Lz-JkG" firstAttribute="leading" secondItem="img-container" secondAttribute="leading" constant="24" id="img-pad-lead"/>
+                        <constraint firstAttribute="trailing" secondItem="AEr-Lz-JkG" secondAttribute="trailing" constant="24" id="img-pad-trail"/>
+                    </constraints>
                 </view>
-                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6s-Y7-ZkH" customClass="ProductInfoView" customModule="ProductCatalogTest" customModuleProvider="target">
-                    <rect key="frame" x="24" y="362" width="345" height="128"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYA-iq-dXD">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XXL-8C-E8f">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="500"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mfv-pg-393" userLabel="Header Spacer">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="350"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="350" id="Yl3-vH-Aqy"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b6s-Y7-ZkH" customClass="ProductInfoView" customModule="ProductCatalog" customModuleProvider="target">
+                                    <rect key="frame" x="24" y="248" width="345" height="128"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="top" secondItem="mfv-pg-393" secondAttribute="bottom" constant="22" id="0X7-0D-vRI"/>
+                                <constraint firstAttribute="bottom" secondItem="b6s-Y7-ZkH" secondAttribute="bottom" id="B6V-rt-FKJ"/>
+                                <constraint firstItem="mfv-pg-393" firstAttribute="leading" secondItem="XXL-8C-E8f" secondAttribute="leading" id="CSk-ej-mQY"/>
+                                <constraint firstAttribute="trailing" secondItem="mfv-pg-393" secondAttribute="trailing" id="Rtt-ap-A4f"/>
+                                <constraint firstItem="mfv-pg-393" firstAttribute="top" secondItem="XXL-8C-E8f" secondAttribute="top" id="Rtx-pE-5e9"/>
+                                <constraint firstAttribute="trailing" secondItem="b6s-Y7-ZkH" secondAttribute="trailing" constant="24" id="VUx-3P-2o5"/>
+                                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="leading" secondItem="XXL-8C-E8f" secondAttribute="leading" constant="24" id="cSU-nC-KSr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="XXL-8C-E8f" firstAttribute="width" secondItem="OYA-iq-dXD" secondAttribute="width" id="Zkd-If-OwZ"/>
+                        <constraint firstItem="XXL-8C-E8f" firstAttribute="bottom" secondItem="OYA-iq-dXD" secondAttribute="bottom" id="eVq-5T-Bpk"/>
+                        <constraint firstItem="XXL-8C-E8f" firstAttribute="leading" secondItem="OYA-iq-dXD" secondAttribute="leading" id="qNV-Lg-x9l"/>
+                        <constraint firstItem="XXL-8C-E8f" firstAttribute="top" secondItem="OYA-iq-dXD" secondAttribute="top" id="w54-tt-Mp0"/>
+                        <constraint firstItem="XXL-8C-E8f" firstAttribute="trailing" secondItem="OYA-iq-dXD" secondAttribute="trailing" id="zVk-u6-g3t"/>
+                    </constraints>
+                </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="mfv-pg-393" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KxF-mt-La2"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="b6s-Y7-ZkH" secondAttribute="trailing" constant="24" id="NFS-SR-N7O"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mfv-pg-393" secondAttribute="trailing" id="UAj-4Y-njf"/>
-                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="VCs-Cn-7sf"/>
-                <constraint firstItem="b6s-Y7-ZkH" firstAttribute="top" secondItem="mfv-pg-393" secondAttribute="bottom" constant="22" id="vIQ-sB-bwu"/>
-                <constraint firstItem="mfv-pg-393" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zBf-Vj-c7A"/>
+                <constraint firstItem="OYA-iq-dXD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8OW-XY-ae3"/>
+                <constraint firstAttribute="bottom" secondItem="OYA-iq-dXD" secondAttribute="bottom" id="Epv-gY-VZf"/>
+                <constraint firstItem="img-container" firstAttribute="bottom" secondItem="mfv-pg-393" secondAttribute="bottom" id="container-bottom-stretch"/>
+                <constraint firstItem="img-container" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="container-lead"/>
+                <constraint firstItem="img-container" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="container-top"/>
+                <constraint firstAttribute="trailing" secondItem="img-container" secondAttribute="trailing" id="container-trail"/>
+                <constraint firstItem="AEr-Lz-JkG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="img-top-safe"/>
+                <constraint firstAttribute="top" secondItem="OYA-iq-dXD" secondAttribute="top" id="vJ8-xg-PZK"/>
+                <constraint firstItem="OYA-iq-dXD" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zie-DF-kko"/>
             </constraints>
             <point key="canvasLocation" x="79" y="-11"/>
         </view>
@@ -46,6 +94,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
