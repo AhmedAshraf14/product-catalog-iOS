@@ -14,8 +14,6 @@ final class NetworkManager: Network {
         let request = request.asURLRequest()
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { data, response in
-                print(data)
-                print(response)
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw NetworkError.invalidResponse
                 }

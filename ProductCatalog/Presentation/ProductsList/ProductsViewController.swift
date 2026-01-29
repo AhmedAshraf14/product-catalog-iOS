@@ -12,7 +12,8 @@ import SkeletonView
 final class ProductsViewController: UIViewController {
 
     @IBOutlet private weak var productsCollectionView: UICollectionView!
-
+    @IBOutlet private weak var emptyImageView: UIImageView!
+    
     private var currentLayout: LayoutType = .list {
         didSet {
             productsCollectionView.reloadData()
@@ -80,11 +81,14 @@ final class ProductsViewController: UIViewController {
 
                 case .empty:
                     productsCollectionView.hideSkeleton()
-                    #warning("TODO: add empty state view")
+                    emptyImageView.isHidden = false
 
                 case .error(let message):
                     productsCollectionView.hideSkeleton()
                     showAlert(message: message)
+                    if viewModel.numberOfProducts() == 0 {
+                        emptyImageView.isHidden = false
+                    }
                 }
             }
             .store(in: &cancellables)

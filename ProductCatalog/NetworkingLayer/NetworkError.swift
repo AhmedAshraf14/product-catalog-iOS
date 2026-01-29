@@ -19,7 +19,7 @@ enum NetworkError: Error {
     var userFriendlyMessage: String {
         switch self {
         case .noInternetConnection:
-            return "You're offline. Showing cached data."
+            return "You're offline. Check network connection."
         case .serverError:
             return "Something went wrong. Please try again later."
         default:

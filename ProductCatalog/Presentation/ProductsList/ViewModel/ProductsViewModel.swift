@@ -31,7 +31,9 @@ final class ProductsViewModel: ProductsViewModelProtocol {
     }
 
     func getProducts() {
-        guard !reachedLastItem, state.value != .loading else { return }
+        guard !reachedLastItem,
+                state.value != .loading
+        else { return }
 
         state.send(products.isEmpty ? .loading : .idle)
 
